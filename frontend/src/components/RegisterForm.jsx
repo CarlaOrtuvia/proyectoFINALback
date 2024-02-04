@@ -72,15 +72,10 @@ const RegisterForm = () => {
       Sign in
     </button>
   </div>
-</form>
-
-        
-        
-        
-        
-        
+</form> 
         
         <Footer/>
         </>
     )
 }
+export default RegisterForm; 

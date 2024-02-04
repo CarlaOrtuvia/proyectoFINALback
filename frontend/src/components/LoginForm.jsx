@@ -1,10 +1,14 @@
 import React from 'react'
 import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Header from './Header/Header'
+import Footer from './Footer/Footer'
 
 export const LoginForm = () => {
+
     const formRef = useRef(null)
     const navigate = useNavigate()
+   
 
     const handleSumbit = async (e) => {
         e.preventDefault()
@@ -19,12 +23,29 @@ export const LoginForm = () => {
             },
             body:JSON.stringify(data)
         })
-        
-console.log(response)
+        if (response.status == 200) {
+          const datos = await response.json()
+          console.log(datos)
+          document.cookie = `jwtCookie=${datos.token}; expires${new Date(Date.now() + 1 * 24 * 60 * 60 * 1000).toUTCString()};path=/;`
+          navigate('/')
+
+      } else {
+          console.log(response)
+      }  
+
     }
   return (
+    <>
+    
+    <Header/>
+    
     <div className="container">
    <form  onSubmit={handleSumbit} ref={formRef}>
+    <div className='col-auto'>
+      <h1>Inicia Sesión</h1> 
+      <p>Si estás registrado, puedes iniciar sesión aquí!</p>
+    </div>
+   
   <div className="col-auto">
     <label htmlFor="email" className="form-label">
       Email
@@ -48,12 +69,22 @@ console.log(response)
   </div>
   <div className="col-auto">
     <button type="submit" className="btn btn-primary mb-3">
-      Confirm identity
+      Iniciar
     </button>
   </div>
 </form>
 
   </div>
+    
+    
+    
+    
+    
+  <Footer/>  
+    
+    
+    </>
+   
   
   )
 }

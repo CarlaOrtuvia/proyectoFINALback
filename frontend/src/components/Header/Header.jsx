@@ -1,9 +1,20 @@
 import React from "react";
 
-const Header = ({ greeting }) =>{
-    return(
-        <header className="headerIndex">
-        <h3>DULCE ROSITA</h3>
-      </header>
+import "./Header.css"
+import CartWidget from '../CartWidget/CartWidget'
+import { NavLink } from "react-router-dom"
+
+const Header = () => {
+    return (
+        <div className="header">
+            <div className="header-hijo">
+                <NavLink className={"header-navlink"} to={'/'}>
+                  <h2 className="header-titulo">Dulce Rosita</h2>
+                </NavLink>
+                <CartWidget />
+            </div>
+        </div>
     )
 }
+
+export default Header
