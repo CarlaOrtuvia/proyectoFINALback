@@ -15,28 +15,28 @@ let cookie = {}
 
 describe('Test CRUD de sesiones en la ruta api/sessions', function () {
 
-   
+    //1) Registrar/Crear un nuevo usuario para agregarlo a la base de datos
     it("Ruta: api/sessions/register con metodo POST", async () => {
         const newUser = {
-            first_name: "Sandra",
-            last_name: "Sanchez",
-            email: "sane131we@saewn131223.com",
-            password: "sa@sa.com"
+            first_name: "Celeste",
+            last_name: "Ortuvia",
+            email: "Celeste@celeste.com",
+            password: "123"
         }
         const { _body } = await api.post('/api/sessions/register').send(newUser)
         expect(_body.payload).to.be.ok
     })
 
-   
+    //2) Iniciar sesión
     it("Ruta: api/sessions/login con metodo POST", async () => {
         const user = {
-            email: "san@san.com",
-            password: "sa@sa.com"
+            email: "Celeste@celeste.com",
+            password: "123"
         }
         const resultado = await api.post('/api/sessions/login').send(user)
         const cookieResult = resultado.headers['set-cookie'][0]
         expect(cookieResult).to.be.ok
-        
+        //clave = valor
         cookie = {
             name: cookieResult.split("=")[0],
             value: cookieResult.split("=")[1]
@@ -45,12 +45,12 @@ describe('Test CRUD de sesiones en la ruta api/sessions', function () {
         expect(cookie.value).to.be.ok
     })
 
-    
+    //3) Verificar que el correo en la respuesta de la API sea igual al proporcionado por el usuario
     it("Ruta: api/sessions/current con metodo GET", async () => {
         const { _body } = await api.get('/api/sessions/current')
             .set('Cookie', [`${cookie.name} = ${cookie.value}`])
         console.log(_body.payload)
-        expect(_body.payload.email).to.be.equal('san@san.com')
+        expect(_body.payload.email).to.be.equal('Celeste@celeste.com')
     })
 
 })

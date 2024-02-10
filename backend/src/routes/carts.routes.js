@@ -4,22 +4,30 @@ import { cartController } from "../controllers/carts.controller.js";
 
 const cartRouter = Router();
 
+
+
+
+
+
 cartRouter.get("/", passportError('jwt'), authorization('admin'), cartController.getCarts);
 
-cartRouter.post("/:cid/products/:id", passportError('jwt'), authorization(['user','premium']), cartController.addProductCart);
+cartRouter.post("/:cid/product/:pid", passportError('jwt'), authorization(['user','premium']), cartController.addProductCart);
 
-cartRouter.post("/", passportError('jwt'), authorization(['user','premium']), cartController.createTicket)
+cartRouter.post("/:cid/purchase", passportError('jwt'), authorization(['user','premium']), cartController.createTicket)
 
-cartRouter.put("/", passportError('jwt'), authorization(['user','premium']), cartController.updateCartsProducts);
+cartRouter.put("/:cid", passportError('jwt'), authorization(['user','premium']), cartController.updateCartsProducts);
 
-cartRouter.put("/product/:id", passportError('jwt'), authorization(['user','premium']), cartController.updateProductQuantity);
+cartRouter.put("/:cid/product/:pid", passportError('jwt'), authorization(['user','premium']), cartController.updateProductQuantity);
 
-cartRouter.delete("/", passportError('jwt'), authorization(['user','premium']), cartController.deleteCartProducts);
+cartRouter.delete("/:cid", passportError('jwt'), authorization(['user','premium']), cartController.deleteCartProducts);
 
-cartRouter.delete("/products/:id", passportError('jwt'), authorization(['user','premium']), cartController.deleteCartProduct);
+cartRouter.delete("/:cid/product/:pid", passportError('jwt'), authorization(['user','premium']), cartController.deleteCartProduct);
 
 
 
-cartRouter.get("/:cid", passportError('jwt'), authorization('admin'), cartController.getCartById);
+
+
+
+cartRouter.get("/:cid", passportError('jwt'), authorization(['user','premium','admin']), cartController.getCartById);
 
 export default cartRouter;

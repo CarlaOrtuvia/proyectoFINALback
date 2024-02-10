@@ -1,8 +1,13 @@
 import { userModel } from "../models/users.models.js";
-import { mailer } from "../config/nodemailer.js";
+import { mailer } from "../config/nodemailer.js"
 import crypto from 'crypto';
 const recoveryLinks = {};
 
+
+
+
+
+//1)
 const getUsers = async (req, res) => {
     try {
         const user = await userModel.find();
@@ -16,13 +21,13 @@ const getUsers = async (req, res) => {
     }
 };
 
-
+//2)
 const getUsersNamesAndEmails = async (req, res) => {
     try {
         const users = await userModel.find();
 
         if (users.length > 0) {
-
+            
             const usersData = users.map(user => ({
                 first_name: user.first_name,
                 last_name: user.last_name,
@@ -38,7 +43,7 @@ const getUsersNamesAndEmails = async (req, res) => {
     }
 };
 
-
+//3)
 const getUserById = async (req, res) => {
     const { id } = req.params;
 
@@ -53,7 +58,7 @@ const getUserById = async (req, res) => {
     }
 };
 
-
+//4)
 const updateUser = async (req, res) => {
     const { id } = req.params;
     const { first_name, last_name, age, email, password } = req.body;
@@ -75,7 +80,7 @@ const updateUser = async (req, res) => {
     }
 };
 
-
+//5)
 const deleteUser = async (req, res) => {
     const { id } = req.params;
     try {
@@ -90,11 +95,14 @@ const deleteUser = async (req, res) => {
     }
 };
 
-
+//6)
 const deleteInactiveUsers = async (req, res) => {
     try {
+        
+        const limiteInactividad = new Date();
+        limiteInactividad.setDate(limiteInactividad.getDate() - 2);
 
-            limiteInactividad.setDate(limiteInactividad.getDate() - 2);
+        
 
         const usuariosInactivos = await userModel.find({ last_connection: { $lt: limiteInactividad } });
 
@@ -114,12 +122,12 @@ const deleteInactiveUsers = async (req, res) => {
     }
 };
 
-
+//7)
 const requestPasswordReset = async (req, res) => {
     const { email } = req.body;
 
     try {
-
+    
         const token = crypto.randomBytes(20).toString('hex');
         recoveryLinks[token] = { email: email, timestamp: Date.now() };
         const recoveryLink = `http://localhost:4000/api/users/reset-password/${token}`;
@@ -130,7 +138,7 @@ const requestPasswordReset = async (req, res) => {
     }
 };
 
-
+//8)
 const resetPassword = async (req, res) => {
     const { token } = req.params;
     const { newPassword, confirmNewPassword } = req.body;
@@ -143,7 +151,7 @@ const resetPassword = async (req, res) => {
             console.log(email);
             console.log(token);
             if (newPassword == confirmNewPassword) {
-
+                
                 delete recoveryLinks[token];
                 res.status(200).send('Contraseña modificada correctamente');
             } else {
@@ -157,7 +165,7 @@ const resetPassword = async (req, res) => {
     }
 };
 
-
+//9)
 const uploadUserDocuments = async (req, res) => {
     const userId = req.params.uid;
     const files = req.files;

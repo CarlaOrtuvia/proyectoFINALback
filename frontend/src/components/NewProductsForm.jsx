@@ -1,8 +1,8 @@
 import { useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { getCookiesByName } from "../utils/formsUtils.js"
-import Header from './Header/Header'
-import Footer from './Footer/Footer'
+import Header from './Header.jsx'
+import Footer from './Footer.jsx'
 
 const NewProductsForm = () => {
     const formRef = useRef(null)
@@ -33,95 +33,57 @@ const NewProductsForm = () => {
 
     return (
         <>
-        <form className="row g-3">
-  <div className="col-md-4">
-    <label htmlFor="product" className="form-label" name="product" >
-      Nuevo producto
-    </label>
-    <input
-      type="text"
-      name="product"
-      className="form-control is-valid"
-      id="validationServer01"
-      defaultValue=" nuevo producto"
-      required=""
-    />
-    <div className="valid-feedback">Looks good!</div>
-  </div>
-  <div className="col-md-4">
-    <label htmlFor="description" className="form-label" name="description">
-      Descripción
-    </label>
-    <input
-      type="text"
-      name="description"
-      className="form-control is-valid"
-      id="validationServer02"
-      defaultValue="Description"
-      required=""
-    />
-    <div className="valid-feedback">Looks good!</div>
-  </div>
-  <div className="col-md-4">
-  <label htmlFor="description" className="form-label" name="category">
-      Categoria
-    </label>
-    <input
-      type="text"
-      name="category"
-      className="form-control is-valid"
-      id="validationServer02"
-      defaultValue="category"
-      required=""
-    />
-  </div>
-  < div className="col-md-3">
-    <label htmlFor="price" className="form-label" name="price">
-      Precio
-    </label>
-    <input
-      type="text"
-      name="price"
-      className="form-control is-invalid"
-      id="validationServer03"
-      required=""
-    />
-  </div>
-  <div className="col-md-3">
-    <label htmlFor="stock" className="form-label" name="stock">
-      Stock
-    </label>
-    <input
-      type="text"
-      name="stock"
-      className="form-control is-invalid"
-      id="validationServer05"
-      required=""
-    />   
-  </div>
-  
-  <div className="col-md-3">
-    <label htmlFor="imagen" className="form-label" name="image">
-      Imagen
-    </label>
-    <input
-      type="text"
-      name="image"
-      className="form-control is-invalid"
-      id="validationServer05"
-      required=""
-    />
-  </div>
-  
-  <div className="col-12">
-    <button className="btn btn-primary" type="submit">
-      Agregar Producto
-    </button>
-  </div>
-</form>
+            <Header />
 
-<Footer/>        
+
+
+            <section className="text-black bg-red-100 body-font py-24">
+                <div className="container px-1 mx-auto">
+                    <div className="flex flex-col text-center w-full mb-12">
+                        <h1 className="sm:text-3xl text-2xl font-medium title-font mb-1 text-black">Agregar nuevo producto al inventario</h1>
+                    </div>
+                    <div className="max-w-md mx-auto">
+                        <div className="mb-4">
+                            <label htmlFor="product-name" className="block text-sm text-black">Nombre</label>
+                            <input type="text" id="product-name" name="product-name" className="w-full bg-red-100 bg-opacity-50 rounded border border-red-50 focus:border-red-400
+                            focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="product-description" className="block text-sm text-black">Descripción</label>
+                            <input type="text" id="product-description" name="product-description" className="w-full bg-black bg-opacity-50 rounded border border-red-100 focus:border-red-50 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="product-category" className="block text-sm text-black">Categoría</label>
+                            <input type="text" id="product-category" name="product-category" className="w-full bg-red-100 bg-opacity-50 rounded border border-reed-50 focus:border-red-200 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="product-code" className="block text-sm text-black">Código</label>
+                            <input type="text" id="product-code" name="product-code" className="w-full bg-red-100 bg-opacity-50 rounded border border-red-50 focus:border-red-300 focus:bg-transparent focus:ring-2 focus:ring-red-200 text-base outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="product-price" className="block text-sm text-black">Precio</label>
+                            <input type="text" id="product-price" name="product-price" className="w-full bg-red-100 bg-opacity-50 rounded border border-red-50 focus:border-red-200 focus:bg-transparent focus:ring-2 focus:ring-red-200 text-base outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="product-stock" className="block text-sm text-black">Stock</label>
+                            <input type="number" id="product-stock" name="product-stock" className="w-full bg-red-100 bg-opacity-50 rounded border border-red-100 focus:border-red-500 focus:bg-transparent focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="product-image" className="block text-sm text-black">Imagen</label>
+                            <input type="file" id="product-image" name="product-image" className="w-full bg-red-100 bg-opacity-50 rounded border border-red-300 focus:border-red-500 focus:bg-transparent focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                        </div>
+                        <div className="mb-4 text-center py-2">
+                            <button className="text-black bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">Agregar Producto</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <Footer />
         </>
     )
 }
-export default NewProductsForm;
+
+export default NewProductsForm

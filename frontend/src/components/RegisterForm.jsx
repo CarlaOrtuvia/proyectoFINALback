@@ -1,7 +1,7 @@
 import { useRef } from "react"
 import { useNavigate } from "react-router-dom"
-import Header from './Header/Header'
-import Footer from './Footer/Footer'
+import Header from './Header.jsx'
+import Footer from './Footer.jsx'
 
 const RegisterForm = () => {
 
@@ -12,7 +12,7 @@ const RegisterForm = () => {
         e.preventDefault()
         const datForm = new FormData(formRef.current) //Tranformo un HTML en un object iterator
         const data = Object.fromEntries(datForm)
-        const response = await fetch('http://localhost:4000/api/sessions/register', {
+        const response = await fetch('http://localhost:4000/api/session/register', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
@@ -23,59 +23,61 @@ const RegisterForm = () => {
             const datos = await response.json()
             console.log(datos)
             navigate('/login')
-
+            window.location.reload()
         } else {
             console.log(response)
         }
     }
     return (
         <>
-        <Header/>
-        <form className="row g-3">
-  <div className="col-md-6">
-    <label htmlFor="inputEmail4" className="form-label" name= "email">
-      Email
-    </label>
-    <input type="email" className="form-control" id="inputEmail4" />
-  </div>
-  <div className="col-md-6">
-    <label htmlFor="inputPassword4" className="form-label" name="password">
-      Password
-    </label>
-    <input type="password" className="form-control" id="inputPassword4" />
-  </div>
-  <div className="col-12">
-    <label htmlFor="name" className="form-label" name= "name">
-      Nombre
-    </label>
-    <input
-      type="text"
-      className="form-control"
-      id="inputname"
-      placeholder="name"
-    />
-  </div>
-  <div className="col-12">
-    <label htmlFor="inputsurname" className="form-label" name= "surname">
-      Apellido
-    </label>
-    <input
-      type="text"
-      className="form-control"
-      id="inputsurname"
-      placeholder="surname"
-    />
-  </div>
-   
-   <div className="col-12">
-    <button type="submit" className="btn btn-primary">
-      Sign in
-    </button>
-  </div>
-</form> 
-        
-        <Footer/>
+            <Header />
+
+
+            <section className="text-black bg-red-100 body-font py-24">
+                <div className="container px-1 mx-auto">
+
+
+                    <div className="flex flex-col text-center w-full mb-12">
+                        <h1 className="sm:text-3xl text-2xl font-medium title-font mb-1 text-black">Registro de Usuario</h1>
+                    </div>
+
+
+                    <form onSubmit={handleSumbit} ref={formRef}>
+                        <div className="max-w-md mx-auto">
+                            <div className="mb-4">
+                                <label htmlFor="full-name" className="block text-sm text-black">Nombre</label>
+                                <input type="text" name="first_name" className="w-full bg-red-100 bg-opacity-50 rounded border border-red-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="last-name" className="block text-sm text-black">Apellido</label>
+                                <input type="text" name="last_name" className="w-full bg-red-100 bg-opacity-50 rounded border border-red-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="email" className="block text-sm text-black">Correo Electrónico</label>
+                                <input type="email" name="email" className="w-full bg-red-100 bg-opacity-50 rounded border border-red-300 focus:border-red-500 focus:bg-transparent focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="age" className="block text-sm text-black">Edad</label>
+                                <input type="number" name="age" className="w-full bg-red-100 bg-opacity-50 rounded border border-red-300 focus:border-red-500 focus:bg-transparent focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="password" className="block text-sm text-black">Contraseña</label>
+                                <input type="password" name="password" className="w-full bg-red-100 bg-opacity-50 rounded border border-red-300 focus:border-red-500 focus:bg-transparent focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                            </div>
+                            <div className="mb-4 text-center py-2">
+                                <button type="submit" className="text-black bg-red-100 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">Registrarse</button>
+                            </div>
+                        </div>
+                    </form>
+
+                
+                </div>
+            </section>
+
+
+            <Footer />
         </>
     )
 }
-export default RegisterForm; 
+
+export default RegisterForm

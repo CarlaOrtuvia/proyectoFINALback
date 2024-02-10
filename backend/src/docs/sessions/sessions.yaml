@@ -33,7 +33,7 @@ components:
                 password:
                     type: string
             example:
-                email: carlaortuvia@ortuvia.com
+                email: luciano@luciano.com
                 password: 1234
 
     requestBodies:

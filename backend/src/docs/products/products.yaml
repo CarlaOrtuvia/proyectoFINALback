@@ -65,6 +65,7 @@ components:
                 - status
                 - title
                 - description
+                - category
                 - price
                 - stock
                 - code
@@ -79,6 +80,8 @@ components:
                 title:
                     type: string
                 description:
+                    type: string
+                category:
                     type: string
                 price:
                     type: number
@@ -158,9 +161,10 @@ components:
                     format: int64
             example:
                 status: true
-                title: manta bebé
-                description: manta tejida a crochet
-                price: 8500
-                stock: 40
+                title: Camisa blanca
+                description: Camisa para uniforme escolar
+                category: Indumentaria
+                price: 900
+                stock: 600
                 code: abc123
-                thumbnail: [image1.jpg]
+                thumbnail: [image1.jpg, image2.jpg]

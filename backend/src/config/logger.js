@@ -63,7 +63,7 @@ const logger = winston.createLogger({
             )
         }),
         new winston.transports.Console({
-           
+            
             level: 'debug',
             format: winston.format.combine(
                 winston.format.colorize({ colors: customLevelOptions.colors }),
@@ -75,7 +75,7 @@ const logger = winston.createLogger({
 
 export const addLogger = (req, res, next) => {
     req.logger = logger
-  
+   
     req.logger.debug(`${req.method} es ${req.url} - ${new Date().toLocaleTimeString()}`)
     next()
 }

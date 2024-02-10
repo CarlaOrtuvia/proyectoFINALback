@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import nodemailer from 'nodemailer'
-import { ticketModel } from "../dao/models/ticket.models.js"
-import { userModel } from "../dao/models/users.models.js"
+import { ticketModel } from "../models/ticket.models.js"
+import { userModel } from "../models/users.models.js"
 
 const transport = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -14,7 +14,7 @@ const transport = nodemailer.createTransport({
     }
 })
 
-
+//1) 
 const sendRecoveryMail = async (email, recoveryLink) => {
     try {
         const mailOptions = {
@@ -31,11 +31,11 @@ const sendRecoveryMail = async (email, recoveryLink) => {
     }
 }
 
-
+//2) 
 const sendAccountDeletionMail = async (email) => {
     try {
         const mailOptions = {
-            from: 'carlitaortuvia@gmail.com',
+            from: 'luciano.caro.1995@gmail.com',
             to: email,
             subject: 'Eliminación de cuenta por inactividad',
             text: 'Tu cuenta ha sido eliminada debido a la inactividad en los últimos 2 días.',
@@ -48,7 +48,7 @@ const sendAccountDeletionMail = async (email) => {
     }
 };
 
-
+//3) 
 const sendPurchaseConfirmation = async (email, ticketId) => {
     try {
         
@@ -57,27 +57,30 @@ const sendPurchaseConfirmation = async (email, ticketId) => {
             console.log('Ticket no encontrado');
             return;
         }
-        
+
+    
         const user = await userModel.findOne({ email: email });
         if (!user) {
             console.log('Usuario no encontrado');
             return;
         }
+
         const mailOptions = {
-            from: 'carlitaortuvia@gmail.com',
+            from: 'luciano.caro.1995@gmail.com',
             to: email,
             subject: `Gracias por tu compra, ${user.first_name}`,
             text: `Gracias por tu compra, ${user.first_name}. Aquí está la información de tu compra:\n
                     Número de ticket: ${ticket._id}\n
                     Monto total: ${ticket.amount}\n
                     Fecha de compra: ${ticket.purchase_datetime}\n`
-        }
+        };
+
         await transport.sendMail(mailOptions);
         console.log('Email de confirmación de compra enviado correctamente');
     } catch (error) {
         console.log('Error al obtener información del ticket o usuario:', error);
     }
-}
+};
 
 
 export const mailer = {

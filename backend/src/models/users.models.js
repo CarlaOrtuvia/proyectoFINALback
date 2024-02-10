@@ -1,6 +1,5 @@
 import { Schema, model } from "mongoose";
-import { cartModel } from "./carts.models.js";
-
+import { cartModel } from './carts.models.js'
 
 const userSchema = new Schema({
     first_name: {
@@ -14,7 +13,7 @@ const userSchema = new Schema({
     },
     age: {
         type: Number,
-        required: true
+        required: false
     },
     email: {
         type: String,
@@ -27,12 +26,12 @@ const userSchema = new Schema({
     },
     rol: {
         type: String,
-        enum: ['user', 'premium'],
-        default: 'user'
+        default: 'user',
+        enum: ['user', 'premium']
     },
-    discounts:{
+    discounts: {
         type: Number,
-        default:0
+        default: 0
     },
     cart: {
         type: Schema.Types.ObjectId,
@@ -40,7 +39,7 @@ const userSchema = new Schema({
     },
     documents: [{
         name: String,
-        reference:String
+        reference: String
     }],
     last_connection: {
         type: Date,
@@ -49,16 +48,15 @@ const userSchema = new Schema({
     }
 })
 
-
-
-userSchema.pre('save', async function(next){
-    try{
+userSchema.pre('save', async function (next) {
+    try {
         const newCart = await cartModel.create({});
         this.cart = newCart._id;
-    } catch(error){
-        return next(error);
+        await newCart.save();
+    } catch (error) {
+        next(error);
     }
-})
+});
 
 userSchema.methods.processPurchase = async function (totalPrice) {
     if (this.rol === 'premium') {
@@ -70,7 +68,5 @@ userSchema.methods.processPurchase = async function (totalPrice) {
     }
     return totalPrice;
 }
-
-
 
 export const userModel = model('users', userSchema)
